@@ -1,16 +1,38 @@
 package arrays
 
+import "reflect"
 import "testing"
 
 func TestArrayOps(t *testing.T) {
 
-    t.Run("Test add an array elements", func(t *testing.T){
-        numbers := [4]int{1, 2, 3, 4}
+    t.Run("Test add an array elements fixed size", func(t *testing.T){
+        numbers := []int{1, 2, 3, 4}
         added := Sum(numbers)
         expected := 10
 
         if expected != added {
             t.Errorf("Expected %d but got %d, array: %v", expected, added, numbers)
+        }
+    })
+
+    t.Run("Test add collection elements any size", func(t *testing.T){
+        numbers := [ ]int{1, 2, 3, 4, 5, 6, 7, 8}
+        added := Sum(numbers)
+        expected := 36
+
+        if expected != added {
+            t.Errorf("Expected %d but got %d, array: %v", expected, added, numbers)
+        }
+    })
+
+    t.Run("Test add collection elements any size", func(t *testing.T){
+        numbers_1 := []int{1, 2, 3, 4}
+        numbers_2 := []int{1, 2, 3, 4, 5, 6, 7, 8}
+        added := SumAll(numbers_1, numbers_2)
+        expected := []int {10, 36}
+
+        if !reflect.DeepEqual(added, expected) {
+            t.Errorf("Expected %d but got %d, arrays: %v, %v", expected, added, numbers_1, numbers_2)
         }
     })
 }
