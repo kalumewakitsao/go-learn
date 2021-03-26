@@ -17,6 +17,22 @@ func TestStructs(t *testing.T) {
 
 func TestArea(t *testing.T) {
 
+    areaTests := []struct {
+        shape Shape
+        want float64
+    } {
+        {Rectangle{10.00, 20.00}, 200.00},
+        {Circle{10.00}, 314.1592653589793},
+    }
+
+    for _, tt := range areaTests {
+        got := tt.shape.Area()
+        if got != tt.want {
+            t.Errorf("Got %g but expected %g", got, tt.want)
+        }
+    }
+
+
     checkArea := func(t testing.TB, shape Shape, want float64) {
         t.Helper()
         got := shape.Area()
